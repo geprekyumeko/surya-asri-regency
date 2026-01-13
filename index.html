@@ -47,7 +47,7 @@
             position: fixed; top: 0; left: 0; width: 100%;
             padding: 20px 0; z-index: 1000;
             transition: all 0.4s ease;
-            background: rgba(249, 247, 242, 0.95);
+            background: rgba(249, 247, 242, 0.98);
             backdrop-filter: blur(5px);
             border-bottom: 1px solid rgba(0,0,0,0.05);
         }
@@ -57,6 +57,7 @@
         .nav-flex { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); letter-spacing: -0.5px; }
         
+        /* Menu Desktop */
         nav ul { display: flex; gap: 30px; }
         nav ul li a { 
             font-size: 1rem; font-weight: 500; color: var(--text-dark); 
@@ -69,13 +70,8 @@
         }
         nav ul li a:hover::after { width: 100%; }
 
-        /* Tambahan Style untuk Tombol Menu Mobile */
-        .mobile-menu-btn {
-            display: none; /* Sembunyi di desktop */
-            font-size: 1.5rem;
-            color: var(--primary);
-            cursor: pointer;
-        }
+        /* Tombol Hamburger (Mobile) */
+        .mobile-menu-btn { display: none; }
 
         /* --- HERO SECTION --- */
         .hero {
@@ -134,7 +130,14 @@
             transition: 0.3s; border: 1px solid rgba(0,0,0,0.03); display: flex; flex-direction: column;
         }
         .card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-        .card-img { position: relative; height: 240px; overflow: hidden; cursor: pointer; }
+        .card-img { 
+            position: relative; 
+            width: 100%;
+            aspect-ratio: 4/3; 
+            height: auto;
+            overflow: hidden; 
+            cursor: pointer; 
+        }
         .card-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease; }
         .card:hover .card-img img { transform: scale(1.05); }
         .card-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
@@ -201,7 +204,6 @@
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: #333; }
         .modal-img-main { width: 100%; height: 250px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
         
-        /* Style khusus untuk list dalam modal */
         .modal-details h4 { color: var(--primary); margin-top: 15px; margin-bottom: 8px; font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 5px; }
         .modal-details ul { list-style: none; margin: 0; padding: 0; margin-bottom: 15px; }
         .modal-details ul li { padding-left: 20px; position: relative; margin-bottom: 5px; color: #555; font-size: 0.95rem; }
@@ -209,38 +211,64 @@
         .modal-details p { color: #555; font-size: 0.95rem; margin-bottom: 10px; }
         .promo-text { color: var(--accent); font-weight: bold; font-style: italic; margin-bottom: 10px; display: block; }
 
-        /* --- PERUBAHAN 2: RESPONSIVE MOBILE (TAMPILAN HP RAPI) --- */
+        /* --- RESPONSIVE MOBILE (BAGIAN INI YANG DISESUAIKAN) --- */
         @media (max-width: 992px) {
             .location-content { grid-template-columns: 1fr; gap: 2rem; }
             .hero h1 { font-size: 2.8rem; }
         }
         
         @media (max-width: 768px) {
-            /* Munculkan tombol menu di HP */
-            .mobile-menu-btn { display: block; } 
-
-            /* Styling Menu Mobile Slide-in */
+            /* 1. Tombol Hamburger Lebih Jelas */
+            .mobile-menu-btn { 
+                display: block; 
+                font-size: 2rem;
+                color: var(--primary);
+                cursor: pointer;
+            } 
+            
+            /* 2. Menu Slide-in Full Screen & Rapi */
             nav ul {
                 position: fixed;
-                top: 0;
-                right: -100%; /* Sembunyi di kanan layar */
-                width: 70%;
+                top: 0; 
+                right: -100%; /* Sembunyikan */
+                width: 100%; /* Full Width */
                 height: 100vh;
-                background: var(--bg-color); /* Sesuai warna background */
+                background: white;
                 flex-direction: column;
+                justify-content: center; /* Rata Tengah */
                 align-items: center;
-                justify-content: center;
-                transition: 0.4s ease;
-                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-                z-index: 1001; /* Di atas navbar */
+                box-shadow: none;
+                transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 1001;
+                gap: 40px; /* Jarak antar menu */
+            }
+            
+            nav ul.active { right: 0; } /* Animasi masuk */
+
+            nav ul li a {
+                font-size: 1.5rem; /* Font besar */
+                color: var(--primary);
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 1px;
             }
 
-            /* Class untuk memunculkan menu */
-            nav ul.active { right: 0; }
-
-            nav ul li { margin: 20px 0; }
+            /* 3. Tombol Close (X) HITAM */
+            #close-menu-btn {
+                display: block !important;
+                position: absolute;
+                top: 30px;
+                right: 30px;
+                width: auto;
+            }
+            
+            #close-menu-btn i {
+                font-size: 2.5rem;
+                color: var(--primary); /* Warna Hitam/Coklat Gelap */
+            }
             
             .hero h1 { font-size: 2.5rem; }
+            .map-wrapper { height: 300px; }
         }
     </style>
 </head>
@@ -250,17 +278,21 @@
         <div class="container nav-flex">
             <div class="logo">SuryaAsri<span style="color:var(--accent)">Land</span></div>
             
-            <div class="mobile-menu-btn">
+            <div class="mobile-menu-btn" onclick="toggleMenu()">
                 <i class="fas fa-bars"></i>
             </div>
 
             <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">Tentang</a></li>
-                    <li><a href="#gallery">Galeri</a></li>
-                    <li><a href="#produk">Unit</a></li>
-                    <li><a href="#contact">Kontak</a></li>
+                <ul id="nav-menu">
+                    <li id="close-menu-btn" style="display: none;" onclick="toggleMenu()">
+                        <i class="fas fa-times"></i>
+                    </li>
+                    
+                    <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+                    <li><a href="#about" onclick="toggleMenu()">Tentang</a></li>
+                    <li><a href="#gallery" onclick="toggleMenu()">Galeri</a></li>
+                    <li><a href="#produk" onclick="toggleMenu()">Unit</a></li>
+                    <li><a href="#contact" onclick="toggleMenu()">Kontak</a></li>
                 </ul>
             </nav>
         </div>
@@ -460,10 +492,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script>
-        // 1. DATA UNIT (DATABASE LENGKAP)
         const units = [
             {
-                // Index 0: Kalongan
                 title: "Surya Asri Kalongan - Type 40/72",
                 price: "Hubungi Admin",
                 img: "images/surya asri-kalongan.png",
@@ -486,7 +516,6 @@
                 `
             },
             {
-                // Index 1: Babadan 45/100
                 title: "Surya Asri Babadan - Type 45/100",
                 price: "UTJ 2 Juta All In",
                 img: "images/surya asri-babadan.png",
@@ -509,7 +538,6 @@
                 `
             },
             {
-                // Index 2: Babadan 45/78
                 title: "Surya Asri Babadan - Type 45/78",
                 price: "DP Hanya 2 Juta",
                 img: "images/surya asri-babadan2.png",
@@ -530,35 +558,29 @@
                     </ul>
                 `
             }
-            // Unit Gunungpati sudah dihapus sesuai file yang diupload terakhir
         ];
 
-        // 2. Navbar Scroll Effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('navbar');
             if (window.scrollY > 50) header.classList.add('scrolled');
             else header.classList.remove('scrolled');
         });
 
-        // --- PERUBAHAN 3: SCRIPT MENU MOBILE (BARU) ---
+        // 3. Mobile Menu Toggle Logic (FIXED FOR EXIT)
         const mobileBtn = document.querySelector('.mobile-menu-btn');
         const navUl = document.querySelector('nav ul');
-        const navLinks = document.querySelectorAll('nav ul li a');
+        const closeBtn = document.getElementById('close-menu-btn');
 
-        // Toggle menu saat tombol burger diklik
-        mobileBtn.addEventListener('click', () => {
+        function toggleMenu() {
             navUl.classList.toggle('active');
-        });
+            
+            if(navUl.classList.contains('active')) {
+                closeBtn.style.display = 'block';
+            } else {
+                closeBtn.style.display = 'none';
+            }
+        }
 
-        // Tutup menu otomatis saat salah satu link diklik
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navUl.classList.remove('active');
-            });
-        });
-
-
-        // 4. Swiper Slider Config
         var swiper = new Swiper(".mySwiper", {
             effect: "coverflow", grabCursor: true, centeredSlides: true, slidesPerView: "auto",
             coverflowEffect: { rotate: 50, stretch: 0, depth: 100, modifier: 1, slideShadows: true },
@@ -566,7 +588,6 @@
             autoplay: { delay: 2500, disableOnInteraction: false },
         });
 
-        // 5. Counter Animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting){
@@ -589,7 +610,6 @@
         }, {threshold: 0.5});
         observer.observe(document.querySelector('.stats-grid'));
 
-        // 6. Modal Logic (Updated to use Data Unit)
         const modal = document.getElementById('modal');
         
         function openModal(index) {
