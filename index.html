@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surya Asri Regency - Hunian Impian</title>
+    <title>Surya Asri Regency</title>
+    
+    <link rel="icon" href="https://img.icons8.com/fluency/48/home.png" type="image/png">
     
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -67,15 +69,21 @@
         }
         nav ul li a:hover::after { width: 100%; }
 
-        /* --- HERO SECTION (UPDATED) --- */
+        /* Tambahan Style untuk Tombol Menu Mobile */
+        .mobile-menu-btn {
+            display: none; /* Sembunyi di desktop */
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* --- HERO SECTION --- */
         .hero {
             height: 100vh; position: relative; overflow: hidden;
             display: flex; align-items: center; justify-content: center; text-align: center;
         }
         .hero-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* UPDATE: Mengambil gambar dari folder images */
-            /* Pastikan nama file kamu adalah 'surya asri-bg.png' dan ada di dalam folder 'images' */
             background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/surya asri-bg.png');
             background-size: cover; background-position: center; z-index: -1;
         }
@@ -201,12 +209,38 @@
         .modal-details p { color: #555; font-size: 0.95rem; margin-bottom: 10px; }
         .promo-text { color: var(--accent); font-weight: bold; font-style: italic; margin-bottom: 10px; display: block; }
 
+        /* --- PERUBAHAN 2: RESPONSIVE MOBILE (TAMPILAN HP RAPI) --- */
         @media (max-width: 992px) {
             .location-content { grid-template-columns: 1fr; gap: 2rem; }
             .hero h1 { font-size: 2.8rem; }
         }
+        
         @media (max-width: 768px) {
-            .nav-flex nav { display: none; }
+            /* Munculkan tombol menu di HP */
+            .mobile-menu-btn { display: block; } 
+
+            /* Styling Menu Mobile Slide-in */
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%; /* Sembunyi di kanan layar */
+                width: 70%;
+                height: 100vh;
+                background: var(--bg-color); /* Sesuai warna background */
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: 0.4s ease;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                z-index: 1001; /* Di atas navbar */
+            }
+
+            /* Class untuk memunculkan menu */
+            nav ul.active { right: 0; }
+
+            nav ul li { margin: 20px 0; }
+            
+            .hero h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -215,6 +249,11 @@
     <header id="navbar">
         <div class="container nav-flex">
             <div class="logo">SuryaAsri<span style="color:var(--accent)">Land</span></div>
+            
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
@@ -271,10 +310,10 @@
             
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b91d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Rumah 1"></div>
-                    <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Rumah 2"></div>
-                    <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1600596542815-27b88e31e976?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Interior"></div>
-                    <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Living Room"></div>
+                    <div class="swiper-slide"><img src="images/surya asri kalongan-gallery.png" alt="Rumah 1"></div>
+                    <div class="swiper-slide"><img src="images/surya asri babadan-gallery.png" alt="Rumah 2"></div>
+                    <div class="swiper-slide"><img src="images/surya asri kalongan-livingroom.png" alt="Interior"></div>
+                    <div class="swiper-slide"><img src="images/surya asri babadan-livingroom.png" alt="Living Room"></div>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -288,15 +327,13 @@
                 <div class="separator"></div>
                 <div class="filter-buttons">
                     <button class="filter-btn active">Semua</button>
-                    <button class="filter-btn">Ungaran</button>
-                    <button class="filter-btn">Gunungpati</button>
                 </div>
             </div>
 
             <div class="product-grid">
                 <div class="card">
                     <div class="card-img" onclick="openModal(0)">
-                        <img src="https://i.ibb.co.com/BrZkP3Y/image-a23484.jpg" alt="Surya Asri Kalongan">
+                        <img src="images/surya asri-kalongan.png" alt="Surya Asri Kalongan">
                     </div>
                     <div class="card-body">
                         <div class="card-header">
@@ -310,7 +347,7 @@
 
                 <div class="card">
                     <div class="card-img" onclick="openModal(1)">
-                        <img src="https://images.unsplash.com/photo-1592595896551-12b371d546d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Surya Asri Babadan">
+                        <img src="images/surya asri-babadan.png" alt="Surya Asri Babadan">
                     </div>
                     <div class="card-body">
                         <div class="card-header">
@@ -324,7 +361,7 @@
 
                 <div class="card">
                     <div class="card-img" onclick="openModal(2)">
-                        <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Surya Asri Babadan Type 45">
+                        <img src="images/surya asri-babadan2.png" alt="Surya Asri Babadan Type 45">
                     </div>
                     <div class="card-body">
                         <div class="card-header">
@@ -333,20 +370,6 @@
                         </div>
                         <p class="card-desc">3 Unit Terakhir! Free AJBBN & Pajak. Bonus Desain Layout Dalam.</p>
                         <button class="btn-card" onclick="openModal(2)">Lihat Detail</button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-img" onclick="openModal(3)">
-                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Sumurrejo Gunungpati">
-                    </div>
-                    <div class="card-body">
-                        <div class="card-header">
-                            <h3 class="card-title">Sumurrejo Gunungpati<br><span style="font-size:0.9rem; font-weight:400;">Type 63/127 (Milenial)</span></h3>
-                            <span class="card-price">Modal 25 Juta</span>
-                        </div>
-                        <p class="card-desc">Promo Rumah Baru Milenial! Design Bisa Request. Free BPHTB & AJBBN.</p>
-                        <button class="btn-card" onclick="openModal(3)">Lihat Detail</button>
                     </div>
                 </div>
             </div>
@@ -443,7 +466,7 @@
                 // Index 0: Kalongan
                 title: "Surya Asri Kalongan - Type 40/72",
                 price: "Hubungi Admin",
-                img: "https://i.ibb.co.com/BrZkP3Y/image-a23484.jpg",
+                img: "images/surya asri-kalongan.png",
                 desc: `
                     <h4>Spesifikasi Rumah:</h4>
                     <ul>
@@ -466,7 +489,7 @@
                 // Index 1: Babadan 45/100
                 title: "Surya Asri Babadan - Type 45/100",
                 price: "UTJ 2 Juta All In",
-                img: "https://images.unsplash.com/photo-1592595896551-12b371d546d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                img: "images/surya asri-babadan.png",
                 desc: `
                     <span class="promo-text">PROMO: 2 UNIT TERAKHIR! TANPA DP!</span>
                     <p>Hanya UTJ 2 Juta All In. Cicilan mulai 2 Juta-an. FREE AJBBN & PAJAK. Bonus Desain Layout Dalam.</p>
@@ -489,7 +512,7 @@
                 // Index 2: Babadan 45/78
                 title: "Surya Asri Babadan - Type 45/78",
                 price: "DP Hanya 2 Juta",
-                img: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                img: "images/surya asri-babadan2.png",
                 desc: `
                     <span class="promo-text">PROMO: 3 UNIT TERAKHIR!</span>
                     <p>DP Ringan, Bisa Cash/KPR. Free AJBBN & Pajak. Bonus Desain Layout Dalam.</p>
@@ -506,24 +529,8 @@
                         <li>3,6km dari RSUD Ungaran</li>
                     </ul>
                 `
-            },
-            {
-                // Index 3: Gunungpati
-                title: "Sumurrejo Gunungpati - Type 63/127",
-                price: "Modal 25 Juta",
-                img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                desc: `
-                    <span class="promo-text">PROMO RUMAH MILENIAL! HARGA TERJANGKAU!</span>
-                    <p>Desain Bisa Request! Lokasi di Sumurrejo (setelah kantor kecamatan Gunungpati). Free BPHTB dan AJBBN.</p>
-                    <h4>Fasilitas Lengkap:</h4>
-                    <ul>
-                        <li>3 Kamar Tidur & Kamar Mandi</li>
-                        <li>Ruang Keluarga, Makan, Tamu</li>
-                        <li>Dapur, Carport, Taman</li>
-                    </ul>
-                    <p>Cash Bisa, KPR juga bisa ✨</p>
-                `
             }
+            // Unit Gunungpati sudah dihapus sesuai file yang diupload terakhir
         ];
 
         // 2. Navbar Scroll Effect
@@ -533,7 +540,25 @@
             else header.classList.remove('scrolled');
         });
 
-        // 3. Swiper Slider Config
+        // --- PERUBAHAN 3: SCRIPT MENU MOBILE (BARU) ---
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        const navUl = document.querySelector('nav ul');
+        const navLinks = document.querySelectorAll('nav ul li a');
+
+        // Toggle menu saat tombol burger diklik
+        mobileBtn.addEventListener('click', () => {
+            navUl.classList.toggle('active');
+        });
+
+        // Tutup menu otomatis saat salah satu link diklik
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navUl.classList.remove('active');
+            });
+        });
+
+
+        // 4. Swiper Slider Config
         var swiper = new Swiper(".mySwiper", {
             effect: "coverflow", grabCursor: true, centeredSlides: true, slidesPerView: "auto",
             coverflowEffect: { rotate: 50, stretch: 0, depth: 100, modifier: 1, slideShadows: true },
@@ -541,7 +566,7 @@
             autoplay: { delay: 2500, disableOnInteraction: false },
         });
 
-        // 4. Counter Animation
+        // 5. Counter Animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting){
@@ -564,7 +589,7 @@
         }, {threshold: 0.5});
         observer.observe(document.querySelector('.stats-grid'));
 
-        // 5. Modal Logic (Updated to use Data Unit)
+        // 6. Modal Logic (Updated to use Data Unit)
         const modal = document.getElementById('modal');
         
         function openModal(index) {
